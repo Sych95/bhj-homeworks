@@ -6,12 +6,12 @@ function findHole (index) {
 function winLoseCheck () {
     if(document.getElementById('lost').textContent === '5') {
         alert('lose')
-        document.getElementById('dead').textContent = '0'
-        document.getElementById('lost').textContent = '0'
+        deadMole = '0';
+        lostMole = '0';
     } else if (document.getElementById('dead').textContent === '10') {
-        alert('win')
-        document.getElementById('dead').textContent = '0'
-        document.getElementById('lost').textContent = '0'
+        alert('win');
+        deadMole = '0';
+        lostMole = '0';
     }
     console.log('Win: ' + deadMole + ', lose: ' + lostMole)
 }
@@ -26,12 +26,14 @@ for(let i = 1; i <= 9; i +=1) {
         if(currentHole.className.includes( 'hole_has-mole' )) {
             deadMole = Number(deadMole);
             deadMole += 1;
-            document.getElementById('dead').textContent = String(deadMole)
+            
         } else {
             lostMole = Number(lostMole);
             lostMole += 1;
-            document.getElementById('lost').textContent = String(lostMole)
         }
         winLoseCheck();
+        document.getElementById('lost').textContent = String(lostMole);
+        document.getElementById('dead').textContent = String(deadMole);
+        
     }
 }
