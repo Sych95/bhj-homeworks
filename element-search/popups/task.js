@@ -16,7 +16,7 @@ secondConfirm.onclick = function () {
 
 
 let modalClose = document.querySelectorAll('.modal__close_times');
-console.log(modalClose)
+
 modalClose.forEach(item => item.onclick = function () {
     let modalParent = item.closest('.modal_active');
     modalParent.classList.remove('modal_active');
