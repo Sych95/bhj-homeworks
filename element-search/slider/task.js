@@ -1,85 +1,64 @@
-let imgList = document.querySelectorAll('.slider__item')
+let imgList = document.querySelectorAll('.slider__item'),
+    dotList= document.querySelectorAll('.slider__dot'),
+    currentActiveSlide,
+    previousSlide;
 
-const nextArrow = document.querySelector('.slider__arrow_next');
-const prevArrow = document.querySelector('.slider__arrow_prev');
-
-let itemAmout = imgList.length - 1;
-
-function nextSlide () {
-    let indexActive, currentItem, newItem;
+const nextArrow = document.querySelector('.slider__arrow_next'),
+    prevArrow = document.querySelector('.slider__arrow_prev');
+    
+//находит текущий отражаемый элемент
+function getActiveSlide () {
     imgList.forEach((item, index) => {
         if(item.classList.contains('slider__item_active')) {
-            indexActive = index;
+            currentActiveSlide = index;
         }
     })
-    currentItem = imgList[indexActive]
-    currentItem.classList.remove('slider__item_active');
-
-    if(indexActive !== itemAmout){
-        newItem = imgList[indexActive + 1];
-    } else newItem = imgList[0];
-
-    newItem.classList.add('slider__item_active')
 }
 
-function previousSlide () {
-    let indexActive, currentItem, newItem;
-    imgList.forEach((item, index) => {
+//удаляет прошлый активный слайд и устанавливает новый активный слайд
+function setActiveSlide (newindex) {
+    imgList.forEach(item => {
         if(item.classList.contains('slider__item_active')) {
-            indexActive = index;
+            item.classList.remove('slider__item_active')
         }
     })
-    currentItem = imgList[indexActive]
-    currentItem.classList.remove('slider__item_active');
-
-    if(indexActive !== 0){
-        newItem = imgList[indexActive - 1];
-    } else newItem = imgList[itemAmout];
-
-    newItem.classList.add('slider__item_active');
+    currentActiveSlide = newindex;
+    imgList[currentActiveSlide].classList.add('slider__item_active');
+    setDot ();
 }
 
-nextArrow.onclick = function() {
-    nextSlide ();
-    activeDotAssign();
+nextArrow.onclick = function () {
+    if(currentActiveSlide !== imgList.length - 1){
+        currentActiveSlide = currentActiveSlide + 1;
+    } else currentActiveSlide = 0;
+    setActiveSlide (currentActiveSlide);
+}
+prevArrow.onclick = function () {
+    if(currentActiveSlide !== 0){
+        currentActiveSlide = currentActiveSlide - 1;
+    } else currentActiveSlide = imgList.length - 1;
+    setActiveSlide (currentActiveSlide);
 }
 
-prevArrow.onclick = function() {
-    previousSlide();
-    activeDotAssign();
-}
-
-
-
-let dotList = document.querySelectorAll('.slider__dot');
-
-let activeDotAssign = function() {
-    let newActiveIndex, newActiveDot;
-    imgList.forEach((item, index) => {
-        if(item.classList.contains('slider__item_active')){
-            newActiveIndex = index;
+//отвечает за отражение активного дота
+function setDot () {
+    dotList.forEach(item => {
+        if(item.classList.contains('slider__dot_active')) {
+            item.classList.remove('slider__dot_active')
         }
     })
-
-    dotList.forEach(itemDot => itemDot.classList.remove('slider__dot_active'));
-    newActiveDot = dotList[newActiveIndex];
-    newActiveDot.classList.add('slider__dot_active');
+    dotList[currentActiveSlide].classList.add('slider__dot_active');
 }
 
-dotList.forEach((item,index) => item.onclick = function() {
-    let indexActive, currentItem, newItem;
-    imgList.forEach((item, index) => {
-        if(item.classList.contains('slider__item_active')) {
-            indexActive = index;
-        }
-    })
-    currentItem = imgList[indexActive];
-    currentItem.classList.remove('slider__item_active');
-
-    newItem = imgList[index];
-    dotList.forEach(itemDot => itemDot.classList.remove('slider__dot_active'))
-    item.classList.add('slider__dot_active');
-    newItem.classList.add('slider__item_active');
+dotList.forEach((item, index) =>{
+    item.onclick = function () {
+        currentActiveSlide = index;
+        setActiveSlide (currentActiveSlide);
+        setDot ()
+    }
 })
 
-activeDotAssign()
+//задает первоначальный элемент с активным дотом
+dotList[0].classList.add('slider__dot_active');
+//находим первое активное изображение
+getActiveSlide();
