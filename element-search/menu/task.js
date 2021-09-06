@@ -1,9 +1,14 @@
-let linkList = document.querySelectorAll('.menu__link'),
-    menuList = document.querySelectorAll('.menu_sub'),
+let linkList = Array.from(document.querySelectorAll('.menu__link')),
+    menuList = Array.from(document.querySelectorAll('.menu_sub')),
+    noHrefList = Array.from(document.querySelectorAll(`a[href='']`)),
     currentItemIndex;
 
+    console.log(noHrefList, linkList)
+
+
+
 linkList.forEach((item,index) => item.onclick = function () {
-    if(item.closest('.menu_active') === null) {
+    if(noHrefList.includes(item) === true) {
         let activeBlock = item.closest('.menu__item'),
             activeList = document.querySelectorAll('.menu_active');
 
