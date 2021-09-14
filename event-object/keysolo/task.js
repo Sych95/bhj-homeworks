@@ -17,13 +17,20 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-     */
+    document.addEventListener('keyup', (event) => {
+      let pressedButton;
+        if(event.key !== 'Tab' && event.key !== 'Shift' && event.key !== 'CapsLock' && event.key !== 'Alt' && event.key !=='Meta' && event.key !==' '){
+          pressedButton = event.key;
+          pressedButton = pressedButton.toLowerCase();
+          console.log('Pressed ' + pressedButton)
+
+          let currentActive = this.currentSymbol.textContent;
+
+          if(pressedButton === currentActive ) {
+            this.success();
+          } else this.fail()
+        }
+    })
   }
 
   success() {
@@ -84,7 +91,12 @@ class Game {
 
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
   }
+
+
+
 }
 
 new Game(document.getElementById('game'))
+
+
 
