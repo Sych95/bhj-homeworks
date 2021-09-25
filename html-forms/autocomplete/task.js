@@ -86,7 +86,7 @@ class Autocomplete {
             text: item.textContent,
             value: item.getAttribute('value')
           }
-          optionList.push(currentItem)
+          matchedList.push(currentItem)
         }
       })
 

@@ -9,6 +9,8 @@ body {
 
 .cart__product {
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .cart__product-count {
   position: absolute;
@@ -26,6 +28,18 @@ body {
   height: 100px;
   object-fit: contain;
 }
+
+.remove-btn {
+  margin-top: 10px;
+  font-size: 10px;
+}
+
+.remove-btn:hover {
+  color: red;
+  text-decoration: solid;
+  cursor: pointer;
+}
+
 .product {
   display: flex;
   flex-wrap: wrap;
