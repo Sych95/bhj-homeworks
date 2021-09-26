@@ -9,3 +9,22 @@ body {
 .poll__title {
   margin-bottom: 20px;
 }
+
+.answer-checked {
+  display: none;
+  text-align: center;
+  background-color: white;
+  width: 50vw;
+  height: 15vh;
+  border: 1px solid black;
+
+}
+
+.active {
+  position: absolute;
+  z-index: 2;
+  left: 25vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
